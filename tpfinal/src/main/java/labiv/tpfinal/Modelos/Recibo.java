@@ -23,13 +23,16 @@ public class Recibo {
     private int nroRecibo;
     private int anio;
     private int mes;
+    @Column(name = "sueldo_bruto")
+    private double sueldoBruto;
     @Column( name = "monto_antiguedad")
     private double montoAntiguedad;
     private double jubilacion;
-    @Column( name = "obra_social")
-    private double obraSocial;
     @Column( name = "fondo_alta_complejidad")
     private double fondoComplejidad;
+    @Column( name = "obra_social")
+    private double obraSocial;
+    
     
     
     @ManyToOne(targetEntity = Empleado.class)
@@ -48,6 +51,16 @@ public class Recibo {
     public int getMes() {
         return mes;
     }
+
+    public double getSueldoBruto() {
+        return sueldoBruto;
+    }
+
+    public void setSueldoBruto(double sueldoBruto) {
+        this.sueldoBruto = sueldoBruto;
+    }
+    
+    
 
     public double getMontoAntiguedad() {
         return montoAntiguedad;
@@ -93,15 +106,28 @@ public class Recibo {
         this.fondoComplejidad = fondoComplejidad;
     }
 
-    public Recibo(int nroRecibo, int anio, int mes,double montoAntiguedad, double jubilacion, double obraSocial, double fondoComplejidad) {
+    public Recibo(int nroRecibo, int anio, int mes, double sueldoBruto, double montoAntiguedad, double jubilacion, double fondoComplejidad, double obraSocial) {
         this.nroRecibo = nroRecibo;
         this.anio = anio;
         this.mes = mes;
+        this.sueldoBruto = sueldoBruto;
         this.montoAntiguedad = montoAntiguedad;
         this.jubilacion = jubilacion;
-        this.obraSocial = obraSocial;
         this.fondoComplejidad = fondoComplejidad;
+        this.obraSocial = obraSocial;
+
     }
+
+  
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+    
     
     
             

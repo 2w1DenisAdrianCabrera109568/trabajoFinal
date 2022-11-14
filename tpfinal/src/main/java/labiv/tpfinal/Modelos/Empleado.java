@@ -4,6 +4,7 @@
  */
 package labiv.tpfinal.Modelos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -36,7 +39,10 @@ public class Empleado {
     
     private List<Recibo> recibo;
     
-    
+    @ManyToOne(targetEntity = Area.class)
+    @JoinColumn(name = "idarea")
+    @JsonBackReference
+    private Area area2;
 
     public int getLegajo() {
         return legajo;
@@ -93,6 +99,16 @@ public class Empleado {
     public void setSueldoBruto(double sueldoBruto) {
         this.sueldoBruto = sueldoBruto;
     }
+    
+     public List<Recibo> getRecibo() {
+        return recibo;
+    }
+
+    public Area getArea2() {
+        return area2;
+    }
+     
+    
 
     public Empleado(int legajo, String nombre, String apellido, Date fechaNacimiento, int fechaIngreso, int area, double sueldoBruto) {
         this.legajo = legajo;
@@ -103,6 +119,10 @@ public class Empleado {
         this.area = area;
         this.sueldoBruto = sueldoBruto;
     }
+
+   
+    
+    
     
     
     

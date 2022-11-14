@@ -4,14 +4,11 @@
  */
 package labiv.tpfinal.Repositories;
 
-import java.util.List;
+
 import labiv.tpfinal.Modelos.Empleado;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-/**
- *
- * @author Candelaria
- */
+
 public interface RepositorioEmpleadosJpaData extends JpaRepository<Empleado,Integer> {
     
     

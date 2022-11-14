@@ -24,12 +24,9 @@ public class ControladorEmpleado {
     private RepositorioEmpleadosJpaData repo;
     
     @GetMapping("/empleados")
-    public ResponseEntity<List<Empleado>> obtenerTodos(){
-        try{
-            return ResponseEntity.ok(repo.findAll());
-        }catch(Exception ex){
-            return ResponseEntity.internalServerError().body(null);
-        }
+    public Iterable<Empleado> consultarAutores() {
+
+        return repo.findAll();
     }
 
 }
