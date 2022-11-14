@@ -30,7 +30,7 @@ public class Empleado {
     private Date fechaNacimiento;
     @Column( name = "fecha_ingreso")
     private int fechaIngreso;
-    private int area;
+    
     @Column( name = "sueldo_bruto")
     private double sueldoBruto;
     
@@ -64,9 +64,6 @@ public class Empleado {
         return fechaIngreso;
     }
 
-    public int getArea() {
-        return area;
-    }
 
     public double getSueldoBruto() {
         return sueldoBruto;
@@ -92,9 +89,6 @@ public class Empleado {
         this.fechaIngreso = fechaIngreso;
     }
 
-    public void setArea(int area) {
-        this.area = area;
-    }
 
     public void setSueldoBruto(double sueldoBruto) {
         this.sueldoBruto = sueldoBruto;
@@ -107,16 +101,20 @@ public class Empleado {
     public Area getArea2() {
         return area2;
     }
+
+    public Empleado() {
+    }
+    
+    
      
     
 
-    public Empleado(int legajo, String nombre, String apellido, Date fechaNacimiento, int fechaIngreso, int area, double sueldoBruto) {
+    public Empleado(int legajo, String nombre, String apellido, Date fechaNacimiento, int fechaIngreso,double sueldoBruto) {
         this.legajo = legajo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaIngreso = fechaIngreso;
-        this.area = area;
         this.sueldoBruto = sueldoBruto;
     }
 

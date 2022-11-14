@@ -118,6 +118,10 @@ public class Recibo {
 
     }
 
+    public Recibo() {
+    }
+
+    
   
 
     public Empleado getEmpleado() {

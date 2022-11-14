@@ -24,7 +24,7 @@ public class ControladorEmpleado {
     private RepositorioEmpleadosJpaData repo;
     
     @GetMapping("/empleados")
-    public Iterable<Empleado> consultarAutores() {
+    public Iterable<Empleado> consultarEmpleados() {
 
         return repo.findAll();
     }
