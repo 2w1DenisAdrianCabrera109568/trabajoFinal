@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -34,15 +34,17 @@ public class Empleado {
     @Column( name = "sueldo_bruto")
     private double sueldoBruto;
     
+    @ManyToOne(targetEntity = Area.class)
+    @JoinColumn(name = "idarea")
+    @JsonBackReference
+    private Area area2;
+    
     @OneToMany(targetEntity=Recibo.class,mappedBy = "empleado")
     @JsonManagedReference
     
     private List<Recibo> recibo;
     
-    @ManyToOne(targetEntity = Area.class)
-    @JoinColumn(name = "idarea")
-    @JsonBackReference
-    private Area area2;
+    
 
     public int getLegajo() {
         return legajo;
@@ -101,6 +103,12 @@ public class Empleado {
     public Area getArea2() {
         return area2;
     }
+
+    public void setArea2(Area area2) {
+        this.area2 = area2;
+    }
+    
+    
 
     public Empleado() {
     }

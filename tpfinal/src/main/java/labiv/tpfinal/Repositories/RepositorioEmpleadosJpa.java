@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 import labiv.tpfinal.DTO.EmpleadoDTO;
 import labiv.tpfinal.DTO.ReporteEmpRecXLegDTO;
 import labiv.tpfinal.DTO.SueldoNetoAreaDTO;
+import labiv.tpfinal.Modelos.Empleado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -114,5 +115,7 @@ public class RepositorioEmpleadosJpa {
         return empleados;
         
     }
+    
+   
     
 }

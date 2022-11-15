@@ -39,6 +39,10 @@ public class Recibo {
     @JsonBackReference
     private Empleado empleado;
 
+    public Recibo(int i, int mes, int anio, double montoAntiguedad, double jubilacion, double obraSocial, double fondoComplejidad, Empleado aux) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public int getNroRecibo() {
         return nroRecibo;
     }

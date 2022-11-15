@@ -62,6 +62,12 @@ public class Area {
         return empleado;
     }
 
+    public void setEmpleado(List<Empleado> empleado) {
+        this.empleado = empleado;
+    }
+    
+    
+
     
     
    

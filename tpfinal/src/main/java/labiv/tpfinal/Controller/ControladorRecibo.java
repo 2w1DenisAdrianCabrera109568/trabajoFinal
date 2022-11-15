@@ -5,6 +5,7 @@
 package labiv.tpfinal.Controller;
 
 import java.util.List;
+import labiv.tpfinal.DTO.ReciboDTO;
 import labiv.tpfinal.Modelos.Empleado;
 import labiv.tpfinal.Modelos.Recibo;
 import labiv.tpfinal.Repositories.RepositorioReciboJpaData;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,24 +28,13 @@ public class ControladorRecibo {
     @Autowired
     private RepositorioReciboJpaData repo;
 
+
     @GetMapping("/recibos")
     public ResponseEntity<List<Recibo>> GetAllRecibos() {
         try {
             return ResponseEntity.ok(repo.findAll());
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(null);
-        }
-    }
-
-    @PutMapping("recibos/add/")
-    public ResponseEntity guardar(@RequestBody Recibo r) {
-
-        try {
-            repo.save(r);
-            return ResponseEntity.ok(null);
-        } catch (Exception ex) {
-            return ResponseEntity.internalServerError().body(ex.getCause());
-
         }
     }
 
