@@ -6,6 +6,7 @@ package labiv.tpfinal.Controller;
 
 import java.util.List;
 import java.util.Optional;
+import labiv.tpfinal.DTO.EmpleadoDTO;
 import labiv.tpfinal.DTO.ReporteEmpRecXLegDTO;
 import labiv.tpfinal.DTO.SueldoNetoAreaDTO;
 import labiv.tpfinal.Modelos.Empleado;
@@ -48,6 +49,12 @@ public class ControladorEmpleado {
     @GetMapping(value= "/resumenareas/{anio}/{mes}")
     public List<SueldoNetoAreaDTO> resumenAreas(@PathVariable int anio, @PathVariable int mes){
     return repo1.resumenAreas(anio, mes);
+    }
+    
+   
+    @GetMapping("/empleados/endpoint")
+    public List<EmpleadoDTO> resumenEmpleados(){
+        return repo1.resumenEmpleados();
     }
     
    

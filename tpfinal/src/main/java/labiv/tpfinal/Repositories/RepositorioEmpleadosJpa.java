@@ -10,8 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
+import labiv.tpfinal.DTO.EmpleadoDTO;
 import labiv.tpfinal.DTO.ReporteEmpRecXLegDTO;
 import labiv.tpfinal.DTO.SueldoNetoAreaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +79,40 @@ public class RepositorioEmpleadosJpa {
             System.out.println(ex.getMessage());
         }
         return areas;
+    }
+    
+    
+    
+    public List<EmpleadoDTO> resumenEmpleados(){
+        
+        List<EmpleadoDTO> empleados = new ArrayList<>();
+        
+        try{
+            Connection conn = source.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select * from all_emp");
+            
+            while(rs.next()){
+                int legajo = rs.getInt(1);
+                String nombre = rs.getString(2);
+                String apellido = rs.getString(3);
+                Date fechaNacimiento = rs.getDate(4);
+                String area = rs.getString(5);
+                int antiguedad = rs.getInt(6);
+                double sueldoBruto = rs.getDouble(7);
+                
+                empleados.add(new EmpleadoDTO(legajo,nombre,apellido,fechaNacimiento,area,antiguedad,sueldoBruto));
+
+            }
+            
+            rs.close();
+            st.close();
+            conn.close();
+        }catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return empleados;
+        
     }
     
 }
