@@ -44,14 +44,14 @@ public class ControladorRecibo {
 
     //Extra - obtener recibo por id
     @GetMapping("/recibos/{id}")
-    public ResponseEntity<Recibo> reciboID(@PathVariable int id
+    public ResponseEntity<?> reciboID(@PathVariable int id
     ) {
         try {
             Recibo r = repo.findById(id).orElse(null);
             if (r != null) {
                 return ResponseEntity.ok(r);
             }
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Recibo no encontrado");
 
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(null);
