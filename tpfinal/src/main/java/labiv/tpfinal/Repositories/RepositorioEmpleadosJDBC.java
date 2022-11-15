@@ -18,6 +18,7 @@ import labiv.tpfinal.DTO.EmpleadoDTO;
 import labiv.tpfinal.DTO.ReporteEmpRecXLegDTO;
 import labiv.tpfinal.DTO.SueldoNetoAreaDTO;
 import labiv.tpfinal.Modelos.Empleado;
+import labiv.tpfinal.exceptions.BackendExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,20 +28,20 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class RepositorioEmpleadosJDBC {
-    
+
     @Autowired
     private DataSource source;
-    
-    public List<ReporteEmpRecXLegDTO> obtenerPorLeg(int leg) {
-        
+
+    public List<ReporteEmpRecXLegDTO> obtenerPorLeg(int leg) throws BackendExceptions {
+
         List<ReporteEmpRecXLegDTO> list = new ArrayList<>();
-        
+
         try {
             Connection conn = source.getConnection();
             PreparedStatement st = conn.prepareStatement("call emp_leg(?)");
             st.setInt(1, leg);
             ResultSet rs = st.executeQuery();
-            
+
             while (rs.next()) {
                 int legajo = rs.getInt("Legajo");
                 String nombre = rs.getString("Nombre");
@@ -54,47 +55,45 @@ public class RepositorioEmpleadosJDBC {
             st.close();
             conn.close();
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            throw new BackendExceptions(ex.getMessage());
         }
         return list;
     }
-    
-    public List<SueldoNetoAreaDTO> resumenAreas(int anio, int mes) {
-        
+
+    public List<SueldoNetoAreaDTO> resumenAreas(int anio, int mes) throws BackendExceptions {
+
         List<SueldoNetoAreaDTO> areas = new ArrayList<>();
-        
+
         try {
             Connection conn = source.getConnection();
             PreparedStatement st = conn.prepareStatement("call sueldo_anio_mes(?,?)");
-           st.setInt(1, anio);
+            st.setInt(1, anio);
             st.setInt(2, mes);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
-            String area = rs.getString(1);
-            int periodo = rs.getInt(2);
-            int mess = rs.getInt(3);
-            double sueldoNeto = rs.getDouble(4);
-            
-            areas.add(new SueldoNetoAreaDTO(area, periodo, mess, sueldoNeto));
+            while (rs.next()) {
+                String area = rs.getString(1);
+                int periodo = rs.getInt(2);
+                int mess = rs.getInt(3);
+                double sueldoNeto = rs.getDouble(4);
+
+                areas.add(new SueldoNetoAreaDTO(area, periodo, mess, sueldoNeto));
             }
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            throw new BackendExceptions(ex.getMessage());
         }
         return areas;
     }
-    
-    
-    
-    public List<EmpleadoAntiguedadDTO> resumenEmpleados(){
-        
+
+    public List<EmpleadoAntiguedadDTO> resumenEmpleados() throws BackendExceptions {
+
         List<EmpleadoAntiguedadDTO> empleados = new ArrayList<>();
-        
-        try{
+
+        try {
             Connection conn = source.getConnection();
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("select * from all_emp");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 int legajo = rs.getInt(1);
                 String nombre = rs.getString(2);
                 String apellido = rs.getString(3);
@@ -102,21 +101,19 @@ public class RepositorioEmpleadosJDBC {
                 String area = rs.getString(5);
                 int antiguedad = rs.getInt(6);
                 double sueldoBruto = rs.getDouble(7);
-                
-                empleados.add(new EmpleadoAntiguedadDTO(legajo,nombre,apellido,fechaNacimiento,area,antiguedad,sueldoBruto));
+
+                empleados.add(new EmpleadoAntiguedadDTO(legajo, nombre, apellido, fechaNacimiento, area, antiguedad, sueldoBruto));
 
             }
-            
+
             rs.close();
             st.close();
             conn.close();
-        }catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            throw new BackendExceptions(ex.getMessage());
         }
         return empleados;
-        
+
     }
-    
-   
-    
+
 }
