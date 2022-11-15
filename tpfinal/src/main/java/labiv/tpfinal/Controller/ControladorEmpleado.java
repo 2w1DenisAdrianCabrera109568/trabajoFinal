@@ -29,7 +29,9 @@ public class ControladorEmpleado {
   
     @Autowired
     private RepositorioEmpleadosJpa repo1;
+    @Autowired
     private RepositorioEmpleadosJpaData repo2;
+    
     
     @GetMapping("/empleados")
     public Iterable<Empleado> consultarEmpleados() {
@@ -37,7 +39,7 @@ public class ControladorEmpleado {
         return repo2.findAll();       
     
     }
-    
+  
     @GetMapping("/empleados/porleg/{leg}")
     public List<ReporteEmpRecXLegDTO> obtenerPorLeg(@PathVariable int leg){
     return repo1.obtenerPorLeg(leg);

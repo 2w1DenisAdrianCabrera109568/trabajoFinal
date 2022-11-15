@@ -12,8 +12,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface RepositorioEmpleadosJpaData extends JpaRepository<Empleado, Integer> {
+
+public interface RepositorioEmpleadosJpaData extends JpaRepository<Empleado,Integer> {
 
    
 
