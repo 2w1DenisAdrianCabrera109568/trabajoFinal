@@ -5,11 +5,9 @@
 package labiv.tpfinal.Controller;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import labiv.tpfinal.Modelos.Empleado;
 import labiv.tpfinal.Modelos.Recibo;
-import labiv.tpfinal.Repositories.RepositorioReciboJPA;
-import labiv.tpfinal.exceptions.BackendExceptions;
+import labiv.tpfinal.Repositories.RepositorioReciboJpaData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,49 +24,52 @@ import org.springframework.web.bind.annotation.RestController;
 public class ControladorRecibo {
 
     @Autowired
-    private RepositorioReciboJPA repo;
+    private RepositorioReciboJpaData repo;
 
-    @GetMapping("/recibos/all")
-    public ResponseEntity GetAllRecibos() {
+    @GetMapping("/recibos")
+    public ResponseEntity<List<Recibo>> GetAllRecibos() {
         try {
-            return ResponseEntity.ok(repo.GetAllRecibo());
-        } catch (BackendExceptions ex) {
+            return ResponseEntity.ok(repo.findAll());
+        } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(null);
         }
     }
 
-    @PutMapping("recibos/add/{legajo}")
-    public ResponseEntity guardar(@PathVariable int legajo, @RequestBody Recibo r) {
-        System.out.println(legajo);
-        System.out.println(r);
-        return ResponseEntity.ok(null);
+    @PutMapping("recibos/add/")
+    public ResponseEntity guardar(@RequestBody Recibo r) {
+
+        try {
+            repo.save(r);
+            return ResponseEntity.ok(null);
+        } catch (Exception ex) {
+            return ResponseEntity.internalServerError().body(ex.getCause());
+
+        }
     }
 
-//    //este es para obtener todos los recibos por legajo
-//    @GetMapping("/recibos/{legajo}")
-//    public ResponseEntity recibosLegajo(@PathVariable int legajo) {
-//        try {
-//
-//        } catch (Exception e) {
-//        }
-//
-//        return ResponseEntity.ok(null);
-//    }
+    //este es para obtener todos los recibos por legajo
+    @GetMapping("/recibos/legajo/{legajo}")
+    public ResponseEntity<List<Recibo>> recibosLegajo(@PathVariable int legajo, @RequestBody Empleado emp) {
+        try {
+            return ResponseEntity.ok(repo.findReciboByEmpleado(emp));
+        } catch (Exception ex) {
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
+
     //este es para obtener recibo por id
     @GetMapping("/recibos/{id}")
-    public ResponseEntity<Recibo> reciboID(@PathVariable int id) {
+    public ResponseEntity<Recibo> reciboID(@PathVariable int id
+    ) {
         try {
-            Recibo r = repo.GetReciboId(id);
-            if (r == null) {
-                return ResponseEntity.notFound().build();
+            Recibo r = repo.findById(id).orElse(null);
+            if (r != null) {
+                return ResponseEntity.ok(r);
             }
+            return ResponseEntity.notFound().build();
 
-            return ResponseEntity.ok(r);
-
-        } catch (BackendExceptions e) {
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().body(null);
         }
-
     }
-
 }

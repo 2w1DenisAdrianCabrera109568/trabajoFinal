@@ -17,24 +17,23 @@ import javax.persistence.Table;
 @Table(name = "recibos")
 
 public class Recibo {
+
     @Id
     @GeneratedValue
-    @Column( name = "numero_recibo")
+    @Column(name = "numero_recibo")
     private int nroRecibo;
     private int anio;
     private int mes;
     @Column(name = "sueldo_bruto")
     private double sueldoBruto;
-    @Column( name = "monto_antiguedad")
+    @Column(name = "monto_antiguedad")
     private double montoAntiguedad;
     private double jubilacion;
-    @Column( name = "fondo_alta_complejidad")
+    @Column(name = "fondo_alta_complejidad")
     private double fondoComplejidad;
-    @Column( name = "obra_social")
+    @Column(name = "obra_social")
     private double obraSocial;
-    
-    
-    
+
     @ManyToOne(targetEntity = Empleado.class)
     @JoinColumn(name = "legajo_empleado")
     @JsonBackReference
@@ -59,8 +58,6 @@ public class Recibo {
     public void setSueldoBruto(double sueldoBruto) {
         this.sueldoBruto = sueldoBruto;
     }
-    
-    
 
     public double getMontoAntiguedad() {
         return montoAntiguedad;
@@ -121,9 +118,6 @@ public class Recibo {
     public Recibo() {
     }
 
-    
-  
-
     public Empleado getEmpleado() {
         return empleado;
     }
@@ -131,8 +125,5 @@ public class Recibo {
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
     }
-    
-    
-    
-            
+
 }
