@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
+import labiv.tpfinal.DTO.EmpleadoAntiguedadDTO;
 import labiv.tpfinal.DTO.EmpleadoDTO;
 import labiv.tpfinal.DTO.ReporteEmpRecXLegDTO;
 import labiv.tpfinal.DTO.SueldoNetoAreaDTO;
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Repository;
  * @author devil
  */
 @Repository
-public class RepositorioEmpleadosJpa {
+public class RepositorioEmpleadosJDBC {
     
     @Autowired
     private DataSource source;
@@ -84,9 +85,9 @@ public class RepositorioEmpleadosJpa {
     
     
     
-    public List<EmpleadoDTO> resumenEmpleados(){
+    public List<EmpleadoAntiguedadDTO> resumenEmpleados(){
         
-        List<EmpleadoDTO> empleados = new ArrayList<>();
+        List<EmpleadoAntiguedadDTO> empleados = new ArrayList<>();
         
         try{
             Connection conn = source.getConnection();
@@ -102,7 +103,7 @@ public class RepositorioEmpleadosJpa {
                 int antiguedad = rs.getInt(6);
                 double sueldoBruto = rs.getDouble(7);
                 
-                empleados.add(new EmpleadoDTO(legajo,nombre,apellido,fechaNacimiento,area,antiguedad,sueldoBruto));
+                empleados.add(new EmpleadoAntiguedadDTO(legajo,nombre,apellido,fechaNacimiento,area,antiguedad,sueldoBruto));
 
             }
             

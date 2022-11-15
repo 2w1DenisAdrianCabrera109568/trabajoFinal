@@ -63,4 +63,22 @@ public class ControladorRecibo {
             return ResponseEntity.internalServerError().body(null);
         }
     }
+    
+    @PostMapping("/recibos/agregar")
+    public ResponseEntity<?> agregarRecibo(@RequestBody ReciboDTO reciboDTO){
+       Empleado aux = new Empleado();
+       aux.setLegajo(reciboDTO.getLegajo());
+       Recibo recibo = new Recibo(
+               0,
+               reciboDTO.getAnio(),
+               reciboDTO.getMes(),
+               reciboDTO.getSueldoBruto(),
+               reciboDTO.getMontoAntiguedad(),
+               reciboDTO.getJubilacion(),
+               reciboDTO.getFondoComplejidad(),               
+               reciboDTO.getObraSocial(),
+               aux);
+       repo.save(recibo);
+       return ResponseEntity.ok("Recibo registrado");
+    }
 }

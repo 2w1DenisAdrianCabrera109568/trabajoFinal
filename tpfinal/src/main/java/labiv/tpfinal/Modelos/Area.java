@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,17 +23,21 @@ import javax.persistence.Table;
 @Table(name = "areas")
 public class Area {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column( name = "idarea")
     private int id;
     @Column(name ="nombre_area")
     private String nombre;
     
    @OneToMany(targetEntity=Recibo.class,mappedBy = "empleado")
-   @JsonManagedReference
+   @JsonManagedReference   
+   private List<Empleado> empleados;
    
-   private List<Empleado> empleado;
-
+   public void addEmpleado(Empleado empleado){
+        empleado.setArea(this);
+        empleados.add(empleado);
+   }
+   
     public int getId() {
         return id;
     }
@@ -58,13 +63,7 @@ public class Area {
     public Area() {
     }
 
-    public List<Empleado> getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(List<Empleado> empleado) {
-        this.empleado = empleado;
-    }
+   
     
     
 

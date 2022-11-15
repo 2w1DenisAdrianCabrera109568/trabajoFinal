@@ -10,14 +10,14 @@ import java.util.Date;
  *
  * @author Candelaria
  */
-public class EmpleadoDTO {
+public class EmpleadoAntiguedadDTO {
     
     private int legajo;
     private String nombre;
     private String apellido;
     private Date fechaNacimiento;
-    private int area;
-    private int fechaIngreso;
+    private String area;
+    private int antiguedad;
     private double sueldoBruto;
 
     public int getLegajo() {
@@ -36,12 +36,12 @@ public class EmpleadoDTO {
         return fechaNacimiento;
     }
 
-    public int getArea() {
+    public String getArea() {
         return area;
     }
 
-    public int getFechaIngreso() {
-        return fechaIngreso;
+    public int getAntiguedad() {
+        return antiguedad;
     }
 
     public double getSueldoBruto() {
@@ -64,28 +64,28 @@ public class EmpleadoDTO {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public void setArea(int area) {
+    public void setArea(String area) {
         this.area = area;
     }
 
-    public void setFechaIngreso(int fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
+    public void setAntiguedad(int antiguedad) {
+        this.antiguedad = antiguedad;
     }
 
     public void setSueldoBruto(double sueldoBruto) {
         this.sueldoBruto = sueldoBruto;
     }
 
-    public EmpleadoDTO() {
+    public EmpleadoAntiguedadDTO() {
     }
 
-    public EmpleadoDTO(int legajo, String nombre, String apellido, Date fechaNacimiento, int area, int antiguedad, double sueldoBruto) {
+    public EmpleadoAntiguedadDTO(int legajo, String nombre, String apellido, Date fechaNacimiento, String area, int antiguedad, double sueldoBruto) {
         this.legajo = legajo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
         this.area = area;
-        this.fechaIngreso = antiguedad;
+        this.antiguedad = antiguedad;
         this.sueldoBruto = sueldoBruto;
     }
     

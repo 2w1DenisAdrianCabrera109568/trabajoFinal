@@ -12,10 +12,19 @@ public class ReciboDTO {
     private int anio;
     private int mes;
     private double montoAntiguedad;
+    private double sueldoBruto;
     private double jubilacion;
     private double obraSocial;
     private double fondoComplejidad;
     private int legajo;
+
+    public double getSueldoBruto() {
+        return sueldoBruto;
+    }
+
+    public void setSueldoBruto(double sueldoBruto) {
+        this.sueldoBruto = sueldoBruto;
+    }
 
     public int getAnio() {
         return anio;
@@ -48,9 +57,10 @@ public class ReciboDTO {
     public ReciboDTO() {
     }
 
-    public ReciboDTO(int anio, int mes, double montoAntiguedad, double jubilacion, double obraSocial, double fondoComplejidad, int legajo) {
+    public ReciboDTO(int anio, int mes, double sueldoBruto,double montoAntiguedad, double jubilacion, double obraSocial, double fondoComplejidad, int legajo) {
         this.anio = anio;
         this.mes = mes;
+        this.sueldoBruto= sueldoBruto;
         this.montoAntiguedad = montoAntiguedad;
         this.jubilacion = jubilacion;
         this.obraSocial = obraSocial;

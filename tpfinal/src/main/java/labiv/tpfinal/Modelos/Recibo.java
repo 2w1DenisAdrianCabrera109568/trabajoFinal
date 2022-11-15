@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +20,7 @@ import javax.persistence.Table;
 public class Recibo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "numero_recibo")
     private int nroRecibo;
     private int anio;
@@ -39,10 +40,18 @@ public class Recibo {
     @JsonBackReference
     private Empleado empleado;
 
-    public Recibo(int i, int mes, int anio, double montoAntiguedad, double jubilacion, double obraSocial, double fondoComplejidad, Empleado aux) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+   // public Recibo(int i, int mes, int anio, double montoAntiguedad, double jubilacion, double obraSocial, double fondoComplejidad, Empleado aux) {
+   //     throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+   // }
+
+    public Empleado getEmpleado() {
+        return empleado;
     }
 
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+    
     public int getNroRecibo() {
         return nroRecibo;
     }
@@ -107,7 +116,7 @@ public class Recibo {
         this.fondoComplejidad = fondoComplejidad;
     }
 
-    public Recibo(int nroRecibo, int anio, int mes, double sueldoBruto, double montoAntiguedad, double jubilacion, double fondoComplejidad, double obraSocial) {
+    public Recibo(int nroRecibo, int anio, int mes, double sueldoBruto, double montoAntiguedad, double jubilacion, double fondoComplejidad, double obraSocial, Empleado empleado) {
         this.nroRecibo = nroRecibo;
         this.anio = anio;
         this.mes = mes;
@@ -116,18 +125,12 @@ public class Recibo {
         this.jubilacion = jubilacion;
         this.fondoComplejidad = fondoComplejidad;
         this.obraSocial = obraSocial;
+        this.empleado= empleado;
 
     }
 
     public Recibo() {
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
-    }
-
+    
 }

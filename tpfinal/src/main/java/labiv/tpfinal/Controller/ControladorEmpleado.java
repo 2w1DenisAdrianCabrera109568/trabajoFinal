@@ -6,11 +6,13 @@ package labiv.tpfinal.Controller;
 
 import java.util.List;
 import java.util.Optional;
+import labiv.tpfinal.DTO.EmpleadoAntiguedadDTO;
 import labiv.tpfinal.DTO.EmpleadoDTO;
 import labiv.tpfinal.DTO.ReporteEmpRecXLegDTO;
 import labiv.tpfinal.DTO.SueldoNetoAreaDTO;
+import labiv.tpfinal.Modelos.Area;
 import labiv.tpfinal.Modelos.Empleado;
-import labiv.tpfinal.Repositories.RepositorioEmpleadosJpa;
+import labiv.tpfinal.Repositories.RepositorioEmpleadosJDBC;
 import labiv.tpfinal.Repositories.RepositorioEmpleadosJpaData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -28,42 +30,55 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Candelaria
  */
 @RestController
+
 public class ControladorEmpleado {
     
   
     @Autowired
-    private RepositorioEmpleadosJpa repo1;
+    private RepositorioEmpleadosJDBC repo1;
     @Autowired
     private RepositorioEmpleadosJpaData repo2;
     
     
-    @GetMapping("/empleados")
+    @GetMapping("/empleados/todos")
     public Iterable<Empleado> consultarEmpleados() {
 
         return repo2.findAll();       
     
     }
   
-    @GetMapping("/empleados/porleg/{leg}")
+    @GetMapping("empleados/porleg/{leg}")
     public List<ReporteEmpRecXLegDTO> obtenerPorLeg(@PathVariable int leg){
     return repo1.obtenerPorLeg(leg);
     }
     
-    @GetMapping(value= "/resumenareas/{anio}/{mes}")
+    @GetMapping(value= "empleados/resumenareas/{anio}/{mes}")
     public List<SueldoNetoAreaDTO> resumenAreas(@PathVariable int anio, @PathVariable int mes){
     return repo1.resumenAreas(anio, mes);
     }
     
    
-    @GetMapping("/empleados/endpoint")
-    public List<EmpleadoDTO> resumenEmpleados(){
+    @GetMapping("empleados/endpoint")
+    public List<EmpleadoAntiguedadDTO> resumenEmpleados(){
         return repo1.resumenEmpleados();
     }
     
-    //////////////////////////
-    @PostMapping("/agregarEmpleado")
-    public Empleado agregar(@RequestBody Empleado empleado){
-        return repo2.save(empleado);
+    
+    @PostMapping("empleados/agregar")
+    public ResponseEntity<?> agregarEmpleado(@RequestBody EmpleadoDTO empleadoDTO){
+       Area aux = new Area();
+       aux.setId(empleadoDTO.getArea());
+       Empleado empleado = new Empleado(
+               0,
+               empleadoDTO.getNombre(),
+               empleadoDTO.getApellido(),
+               empleadoDTO.getFechaNacimiento(),
+               empleadoDTO.getFechaIngreso(),
+               empleadoDTO.getSueldoBruto(),
+               aux);
+       repo2.save(empleado);
+       return ResponseEntity.ok("Empleado registrado");
+       
     }
     
     

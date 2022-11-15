@@ -15,6 +15,6 @@ import org.springframework.stereotype.Repository;
 
 public interface RepositorioEmpleadosJpaData extends JpaRepository<Empleado,Integer> {
 
-   
+  
 
 }

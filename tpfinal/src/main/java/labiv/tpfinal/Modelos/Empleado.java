@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,7 +22,7 @@ import javax.persistence.Table;
 @Table(name = "empleados")
 public class Empleado {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column( name = "legajo_empleado")
     private int legajo;
     private String nombre;
@@ -37,14 +38,16 @@ public class Empleado {
     @ManyToOne(targetEntity = Area.class)
     @JoinColumn(name = "idarea")
     @JsonBackReference
-    private Area area2;
+    private Area area;
     
     @OneToMany(targetEntity=Recibo.class,mappedBy = "empleado")
-    @JsonManagedReference
+    @JsonManagedReference    
+    private List<Recibo> recibos;
     
-    private List<Recibo> recibo;
-    
-    
+     public void addRecibo(Recibo recibo){
+        recibo.setEmpleado(this);
+        recibos.add(recibo);
+    }
 
     public int getLegajo() {
         return legajo;
@@ -97,33 +100,32 @@ public class Empleado {
     }
     
      public List<Recibo> getRecibo() {
-        return recibo;
+        return recibos;
     }
 
-    public Area getArea2() {
-        return area2;
+    public Area getArea() {
+        return area;
     }
 
-    public void setArea2(Area area2) {
-        this.area2 = area2;
+    public void setArea(Area area) {
+        this.area = area;
     }
-    
-    
+       
 
     public Empleado() {
-    }
-    
+    }  
     
      
     
 
-    public Empleado(int legajo, String nombre, String apellido, Date fechaNacimiento, int fechaIngreso,double sueldoBruto) {
+    public Empleado(int legajo, String nombre, String apellido, Date fechaNacimiento, int fechaIngreso,double sueldoBruto, Area area) {
         this.legajo = legajo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaIngreso = fechaIngreso;
         this.sueldoBruto = sueldoBruto;
+        this.area = area;
     }
 
    
