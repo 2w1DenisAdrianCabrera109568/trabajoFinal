@@ -17,4 +17,6 @@ public interface RepositorioReciboJpaData extends JpaRepository<Recibo, Integer>
     
     List<Recibo> findReciboByEmpleado(Empleado emp);
     
+    
+    
 }
