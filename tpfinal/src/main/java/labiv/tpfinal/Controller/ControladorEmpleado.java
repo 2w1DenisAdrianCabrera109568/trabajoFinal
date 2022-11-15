@@ -39,7 +39,7 @@ public class ControladorEmpleado {
     @Autowired
     private RepositorioEmpleadosJpaData repo2;
     
-    
+    //Extra - obtener todos los empleados con sus recibos
     @GetMapping("/empleados/todos")
     public Iterable<Empleado> consultarEmpleados() {
 
@@ -47,23 +47,26 @@ public class ControladorEmpleado {
     
     }
   
+    //Punto 4. Dado un legajo obtener todos los recibos de sueldo
     @GetMapping("empleados/porleg/{leg}")
     public List<ReporteEmpRecXLegDTO> obtenerPorLeg(@PathVariable int leg){
     return repo1.obtenerPorLeg(leg);
     }
     
+    
+    //Punto 5. Dado un anio y mes obtener reporte
     @GetMapping(value= "empleados/resumenareas/{anio}/{mes}")
     public List<SueldoNetoAreaDTO> resumenAreas(@PathVariable int anio, @PathVariable int mes){
     return repo1.resumenAreas(anio, mes);
     }
     
-   
+   //Punto 1 - listado de empleados con antiguedad
     @GetMapping("empleados/endpoint")
     public List<EmpleadoAntiguedadDTO> resumenEmpleados(){
         return repo1.resumenEmpleados();
     }
     
-    
+    //Punto 2 -Agregamos un empleado
     @PostMapping("empleados/agregar")
     public ResponseEntity<?> agregarEmpleado(@RequestBody EmpleadoDTO empleadoDTO){
        Area aux = new Area();

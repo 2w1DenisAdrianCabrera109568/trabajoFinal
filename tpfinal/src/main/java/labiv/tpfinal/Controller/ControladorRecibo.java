@@ -28,7 +28,7 @@ public class ControladorRecibo {
     @Autowired
     private RepositorioReciboJpaData repo;
 
-
+    //Extra - obtenemos todos los recibos
     @GetMapping("/recibos")
     public ResponseEntity<List<Recibo>> GetAllRecibos() {
         try {
@@ -48,7 +48,7 @@ public class ControladorRecibo {
         }
     }
 
-    //este es para obtener recibo por id
+    //Extra - obtener recibo por id
     @GetMapping("/recibos/{id}")
     public ResponseEntity<Recibo> reciboID(@PathVariable int id
     ) {
@@ -64,6 +64,7 @@ public class ControladorRecibo {
         }
     }
     
+    //Punto 3 - agregar recibo
     @PostMapping("/recibos/agregar")
     public ResponseEntity<?> agregarRecibo(@RequestBody ReciboDTO reciboDTO){
        Empleado aux = new Empleado();
