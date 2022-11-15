@@ -9,7 +9,9 @@ import labiv.tpfinal.DTO.ReciboDTO;
 import labiv.tpfinal.Modelos.Empleado;
 import labiv.tpfinal.Modelos.Recibo;
 import labiv.tpfinal.Repositories.RepositorioReciboJpaData;
+import labiv.tpfinal.Repositories.RepositorioEmpleadosJpaData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,21 +29,14 @@ public class ControladorRecibo {
     @Autowired
     private RepositorioReciboJpaData repo;
 
+    @Autowired
+    private RepositorioEmpleadosJpaData repo2;
+
     //Extra - obtenemos todos los recibos
     @GetMapping("/recibos")
     public ResponseEntity<List<Recibo>> GetAllRecibos() {
         try {
             return ResponseEntity.ok(repo.findAll());
-        } catch (Exception ex) {
-            return ResponseEntity.internalServerError().body(null);
-        }
-    }
-
-    //este es para obtener todos los recibos por legajo
-    @GetMapping("/recibos/legajo/{legajo}")
-    public ResponseEntity<List<Recibo>> recibosLegajo(@PathVariable int legajo, @RequestBody Empleado emp) {
-        try {
-            return ResponseEntity.ok(repo.findReciboByEmpleado(emp));
         } catch (Exception ex) {
             return ResponseEntity.internalServerError().body(null);
         }
@@ -62,23 +57,26 @@ public class ControladorRecibo {
             return ResponseEntity.internalServerError().body(null);
         }
     }
-    
+
     //Punto 3 - agregar recibo
     @PostMapping("/recibos/agregar")
-    public ResponseEntity<?> agregarRecibo(@RequestBody ReciboDTO reciboDTO){
-       Empleado aux = new Empleado();
-       aux.setLegajo(reciboDTO.getLegajo());
-       Recibo recibo = new Recibo(
-               0,
-               reciboDTO.getAnio(),
-               reciboDTO.getMes(),
-               reciboDTO.getSueldoBruto(),
-               reciboDTO.getMontoAntiguedad(),
-               reciboDTO.getJubilacion(),
-               reciboDTO.getFondoComplejidad(),               
-               reciboDTO.getObraSocial(),
-               aux);
-       repo.save(recibo);
-       return ResponseEntity.ok("Recibo registrado");
+    public ResponseEntity<?> agregarRecibo(@RequestBody ReciboDTO reciboDTO) {
+        Empleado aux = repo2.findById(reciboDTO.getLegajo()).orElse(null);
+        if (aux == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El Empleado indicado no existe");
+        }
+        aux.setLegajo(reciboDTO.getLegajo());
+        Recibo recibo = new Recibo(
+                0,
+                reciboDTO.getAnio(),
+                reciboDTO.getMes(),
+                reciboDTO.getSueldoBruto(),
+                reciboDTO.getMontoAntiguedad(),
+                reciboDTO.getJubilacion(),
+                reciboDTO.getFondoComplejidad(),
+                reciboDTO.getObraSocial(),
+                aux);
+        repo.save(recibo);
+        return ResponseEntity.ok("Recibo registrado");
     }
 }

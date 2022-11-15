@@ -11,11 +11,13 @@ import labiv.tpfinal.DTO.ReporteEmpRecXLegDTO;
 import labiv.tpfinal.DTO.SueldoNetoAreaDTO;
 import labiv.tpfinal.Modelos.Area;
 import labiv.tpfinal.Modelos.Empleado;
+import labiv.tpfinal.Repositories.RepositorioAreasJpaData;
 import labiv.tpfinal.Repositories.RepositorioEmpleadosJDBC;
 import labiv.tpfinal.Repositories.RepositorioEmpleadosJpaData;
 import labiv.tpfinal.exceptions.BackendExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +36,8 @@ public class ControladorEmpleado {
     private RepositorioEmpleadosJDBC repo1;
     @Autowired
     private RepositorioEmpleadosJpaData repo2;
+    @Autowired
+    private RepositorioAreasJpaData repo3;
 
     //Extra - obtener todos los empleados con sus recibos
     @GetMapping("/empleados/todos")
@@ -81,7 +85,10 @@ public class ControladorEmpleado {
     //Punto 2 -Agregamos un empleado
     @PostMapping("empleados/agregar")
     public ResponseEntity<?> agregarEmpleado(@RequestBody EmpleadoDTO empleadoDTO) {
-        Area aux = new Area();
+        Area aux = repo3.findById(empleadoDTO.getArea()).orElse(null);
+        if (aux == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El Area indicada es invalida");
+        }
         aux.setId(empleadoDTO.getArea());
         Empleado empleado = new Empleado(
                 0,
@@ -93,5 +100,6 @@ public class ControladorEmpleado {
                 aux);
         repo2.save(empleado);
         return ResponseEntity.ok("Empleado registrado");
+
     }
 }
