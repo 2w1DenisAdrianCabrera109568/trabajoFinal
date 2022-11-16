@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "c27f7326-5569-479e-8ceb-72fd6d798170",
+		"name": "TP Laboratorio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12380763"
+	},
+	"item": [
+		{
+			"name": "Punto 1 - Listado de empleados. OK",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/empleados/endpoint",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"empleados",
+						"endpoint"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Punto 2 - Crear un empleado OK",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"candelaria\",\r\n    \"apellido\": \"sobol\",\r\n    \"fechaNacimiento\":\"1999-04-29\",\r\n    \"area\": \"3\",\r\n    \"fechaIngreso\": \"2021\",\r\n    \"sueldoBruto\":\"56900\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/empleados/agregar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"empleados",
+						"agregar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Punto 2 - Crear un empleado. ERROR - area inexistente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"candelaria\",\r\n    \"apellido\": \"sobol\",\r\n    \"fechaNacimiento\":\"1999-04-29\",\r\n    \"area\": \"8\",\r\n    \"fechaIngreso\": \"2021\",\r\n    \"sueldoBruto\":\"56900\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/empleados/agregar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"empleados",
+						"agregar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Punto 3 - Registrar un recibo OK",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"anio\":\"2022\",\r\n    \"mes\": \"6\",\r\n    \"sueldoBruto\": \"56900\",\r\n    \"jubilacion\": \"5900\",\r\n    \"obraSocial\": \"500\",\r\n    \"fondoComplejidad\": \"1000\",\r\n    \"legajo\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/recibos/agregar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"recibos",
+						"agregar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Punto 3 - Crear un recibo. ERROR - legajo inexistente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"anio\":\"2022\",\r\n    \"mes\": \"6\",\r\n    \"sueldoBruto\": \"56900\",\r\n    \"jubilacion\": \"5900\",\r\n    \"obraSocial\": \"500\",\r\n    \"fondoComplejidad\": \"1000\",\r\n    \"legajo\": \"45\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/recibos/agregar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"recibos",
+						"agregar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Punto 4 -Mostrar recibos x legajo OK",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/empleados/porleg/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"empleados",
+						"porleg",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Punto 4 - Mostrar recibo x legajo. ERROR - legajo inexistente",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Punto 5 - Reporte por año y mes OK",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/empleados/resumenareas/2020/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"empleados",
+						"resumenareas",
+						"2020",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Punto 5 - Reporte por año y mes ERROR 204 - no content",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/empleados/resumenareas/2020/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"empleados",
+						"resumenareas",
+						"2020",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Punto 5 - Reporte por anio y mes. ERROR - Anio invalido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/empleados/resumenareas/2024/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"empleados",
+						"resumenareas",
+						"2024",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Punto 5 - Reporte por anio y mes. ERROR - Mes invalido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/empleados/resumenareas/2020/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"empleados",
+						"resumenareas",
+						"2020",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Extra - Obtener recibo por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/recibos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"recibos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Extra - Obtener recibo por id . ERROR - Id inexistente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/recibos/89",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"recibos",
+						"89"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Extra - Obtener todos los recibos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/recibos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"recibos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Extra - Listado de empleados con sus recibos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/empleados/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"empleados",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `tplab` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `tplab`;
 -- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: tplab
@@ -75,7 +77,7 @@ CREATE TABLE `empleados` (
   PRIMARY KEY (`legajo_empleado`),
   KEY `areaEmpleado_idx` (`idarea`),
   CONSTRAINT `areaEmpleado` FOREIGN KEY (`idarea`) REFERENCES `areas` (`idarea`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,7 +86,7 @@ CREATE TABLE `empleados` (
 
 LOCK TABLES `empleados` WRITE;
 /*!40000 ALTER TABLE `empleados` DISABLE KEYS */;
-INSERT INTO `empleados` VALUES (1,'Juan','Perez','1990-12-05',2020,3,60000),(2,'Maria','Alonso','1982-01-02',2015,1,95000),(3,'Elena','Gonzales','1987-02-03',2015,2,80000),(4,'Sergio','Navarro','1992-05-05',2019,2,79000);
+INSERT INTO `empleados` VALUES (1,'Juan','Perez','1990-12-05',2020,3,60000),(2,'Maria','Alonso','1982-01-02',2015,1,95000),(3,'Elena','Gonzales','1987-02-03',2015,2,80000),(4,'Sergio','Navarro','1992-05-05',2019,2,79000),(5,'Sebastian','Perez','1990-06-05',2021,3,56900),(6,'Sebastian','Perez','1992-06-05',2022,2,69000),(7,'Claudio','romero','1991-07-05',2022,3,60000);
 /*!40000 ALTER TABLE `empleados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,7 +110,7 @@ CREATE TABLE `recibos` (
   PRIMARY KEY (`numero_recibo`),
   KEY `empleado_idx` (`legajo_empleado`),
   CONSTRAINT `empleado` FOREIGN KEY (`legajo_empleado`) REFERENCES `empleados` (`legajo_empleado`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +119,7 @@ CREATE TABLE `recibos` (
 
 LOCK TABLES `recibos` WRITE;
 /*!40000 ALTER TABLE `recibos` DISABLE KEYS */;
-INSERT INTO `recibos` VALUES (1,2015,2,80000,0,8000,1000,500,2),(2,2015,3,72000,0,7200,1000,500,3),(3,2020,5,60000,0,6000,1000,500,1),(4,2019,2,85000,4000,8900,1000,500,2),(7,2020,5,90000,5000,9000,1000,500,2),(8,2020,5,75000,5000,7500,1000,500,3),(9,2020,5,74000,1000,7400,1000,500,4);
+INSERT INTO `recibos` VALUES (1,2015,2,80000,0,8000,1000,500,2),(2,2015,3,72000,0,7200,1000,500,3),(3,2020,5,60000,0,6000,1000,500,1),(4,2019,2,85000,4000,8900,1000,500,2),(7,2020,5,90000,5000,9000,1000,500,2),(8,2020,5,75000,5000,7500,1000,500,3),(9,2020,5,74000,1000,7400,1000,500,4),(10,2022,5,56900,0,5960,1000,500,5);
 /*!40000 ALTER TABLE `recibos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -204,4 +206,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-13 22:26:01
+-- Dump completed on 2022-11-15 20:43:18

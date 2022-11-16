@@ -62,10 +62,22 @@ public class ControladorEmpleado {
     }
 
     //Punto 5. Dado un anio y mes obtener reporte
-    @GetMapping(value = "empleados/resumenareas/{anio}/{mes}")
-    public ResponseEntity<List<SueldoNetoAreaDTO>> resumenAreas(@PathVariable int anio, @PathVariable int mes) {
+   @GetMapping(value = "empleados/resumenareas/{anio}/{mes}")
+    public ResponseEntity<?> resumenAreas(@PathVariable int anio, @PathVariable int mes) {
+        if (anio < 2015 || anio > 2022) {
+            return ResponseEntity.badRequest().body("Ano no valido");
+        }
+        if (mes < 1 || mes > 12) {
+            return ResponseEntity.badRequest().body("Mes invalido");
+
+        }
+
         try {
+            if (repo1.resumenAreas(anio, mes).isEmpty()) {
+                return ResponseEntity.accepted().body("su consulta es valida pero no existen datos para esa fecha");
+            }
             return ResponseEntity.ok(repo1.resumenAreas(anio, mes));
+
         } catch (BackendExceptions ex) {
             return ResponseEntity.internalServerError().body(null);
         }
