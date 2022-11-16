@@ -45,7 +45,7 @@ public class ControladorEmpleado {
 
         Iterable<Empleado> aux = repo2.findAll();
         if (aux != null) {
-            return ResponseEntity.ok(repo2.findAll());
+            return ResponseEntity.ok(aux);
         } else {
             return ResponseEntity.internalServerError().body(null);
         }

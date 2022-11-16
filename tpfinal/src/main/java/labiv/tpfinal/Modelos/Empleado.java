@@ -99,9 +99,7 @@ public class Empleado {
         this.sueldoBruto = sueldoBruto;
     }
     
-     public List<Recibo> getRecibo() {
-        return recibos;
-    }
+   
 
     public Area getArea() {
         return area;
